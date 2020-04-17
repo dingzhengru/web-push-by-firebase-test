@@ -4,7 +4,7 @@
 
 ## Firebase Cloud Messaging (FCM) - Legacy HTTP API or HTTP V1 API?
 * 參考: https://stackoverflow.com/questions/49193051/firebase-cloud-messaging-fcm-http-v1-api-or-legacy-http-api
-* 現在傳送通知有兩種方式，舊版雖簡單方便，但較不安全，新版 V1 是用 OAuth2 的驗證模式
+* 現在傳送通知有兩種方式，舊版雖簡單方便，但較不安全，新版 V1 是用 OAuth2 的驗證模式 (其實是JSON Web Token (JWT) 跟 Oauth2 不同)
 
 ### 舊版 API
 * 參考: https://www.freecodecamp.org/news/how-to-add-push-notifications-to-a-web-app-with-firebase-528a702e13e1/
@@ -14,7 +14,7 @@
 * 會需要用到以下工具與檔案
 * 參考: https://stackoverflow.com/questions/51064260/getting-request-had-invalid-authentication-credentials-error-fcm
 * firebase 的 私鑰.json(專案 => 服務帳戶 => 產生新的私鑰)
-* google-auth-library-nodejs: 用於透過私鑰取得 access_token
+* google-auth-library-nodejs: 透過 JSON Web Token (JWT) 方式讀取私鑰取得 access_token 
 
 ```bash
 
