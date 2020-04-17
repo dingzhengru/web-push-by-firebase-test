@@ -1,0 +1,22 @@
+{
+  "name": "StarBets",
+  "short_name": "StarBets",
+  "description": "",
+  "theme_color": "#1B607F",
+  "icons": [
+    {
+      "src": "./img/logo-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }, 
+    {
+      "src": "./img/logo-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "gcm_sender_id": "194498955675"
+}
