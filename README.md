@@ -15,13 +15,14 @@
 * 參考: https://stackoverflow.com/questions/51064260/getting-request-had-invalid-authentication-credentials-error-fcm
 * firebase 的 私鑰.json(專案 => 服務帳戶 => 產生新的私鑰)
 * google-auth-library-nodejs: 透過 JSON Web Token (JWT) 方式讀取私鑰取得 access_token 
+* 會需要後端透過 JWT 讀取私鑰 取得 access_token 後再用下面的 API
 
 ```bash
 
 POST https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send
 
 Content-Type: application/json
-Authorization: Bearer ya29.ElqKBGN2Ri_Uz...PbJ_uNasm
+Authorization: Bearer access_token
 
 {
   "message": {
