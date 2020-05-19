@@ -1,6 +1,10 @@
 # web-push-test
 用 Firebase Cloud Messaging 試做 web push
 
+參考: https://medium.com/front-end-augustus-study-notes/firebase-cloud-messaging-web-push-8ebf09e6b15b  
+參考: https://letswrite.tw/pwa-web-push/  
+
+上面是同篇，下面才看的到程式碼，不過上面架構比較好讀  
 
 ## Firebase Cloud Messaging (FCM) - Legacy HTTP API or HTTP V1 API?
 * 參考: https://stackoverflow.com/questions/49193051/firebase-cloud-messaging-fcm-http-v1-api-or-legacy-http-api

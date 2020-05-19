@@ -28,6 +28,17 @@ if ('serviceWorker' in navigator) {
         // setTokenSentToServer(false)
       })
 
+      /*
+        接受web push有2種情況：
+        
+          1.使用者正開啟官網頁面
+          2.使用者沒有開啟官網頁面
+        
+        第一種情況，是在index.js下寫一個messaging.onMessage的function處理。
+        第二種情況，是在sw.js下寫一個messaging.setBackgroundMessageHandler的function處理。
+
+        此為第一種情況: 使用者正開啟官網頁面
+      */
       messaging.onMessage(payload => {
         console.log('Message received. ', payload);
         // ...
