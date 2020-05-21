@@ -48,6 +48,7 @@ export async function getAccessToken() {
 */
 
 export async function pushMessage(token, accessToken) {
+  // 欄位一覽: https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages?hl=zh-TW#Notification
   const data = {
     "message": {
       "token" : token, // 目的地 app 的 token
@@ -56,13 +57,16 @@ export async function pushMessage(token, accessToken) {
         "body": "Message!!!!!!!!"
       },
       "webpush": {
+        "fcm_options": { // WebpushFcmOptions: https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages?hl=zh-TW#webpushfcmoptions
+          "link": "http://localhost:50005" // 點擊通知後會去的網址
+        },
         "headers": {
           "Urgency": "high"
         },
         "notification": {
           "body": "Web Push Message!!!!!!!!",
           "requireInteraction": "true",
-          // "badge": "https://i.imgur.com/AoZ6hZA.png",
+          "badge": "https://i.imgur.com/AoZ6hZA.png",
           "icon": "https://i.imgur.com/AoZ6hZA.png"
         }
       }

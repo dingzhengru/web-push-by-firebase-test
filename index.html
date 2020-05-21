@@ -10,7 +10,7 @@
   <h1>Web Push Test</h1>
 
   <p>
-    過3秒送出，趁這段時間離開這網頁，才能看到此通知
+    過3秒送出，趁這段時間離開這分頁，才能看到此通知
   </p>
 
   <button onclick="pushMessage()">Push Message</button>
@@ -34,8 +34,6 @@
       await timeout(3000)
 
       const result = await axios.post(url, { token })
-      
-      console.log(result)
     }
 
     function timeout(ms) {

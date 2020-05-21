@@ -38,7 +38,6 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-// 加上 0.0.0.0 取得的 req.ip 就會是 ipv4 的
 app.listen(port, () => {
     console.log(`listening on ${ port }`)
 })
