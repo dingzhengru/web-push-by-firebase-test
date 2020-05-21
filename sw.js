@@ -34,17 +34,35 @@ const messaging = firebase.messaging()
 
 console.log('set messaging')
 
-messaging.setBackgroundMessageHandler(function(payload) {
+/*
+  這邊是原生的 service worker 的接收事件，可以於 dev tools 點 push 測試效果
+  這裡不管是不是在頁面上，只要是收到通知，都一律會進入
+  用 firebase 的 Cloud Messaging 推送，這邊也會收到，但就會有兩次通知就是
+*/
+self.addEventListener('push', event => {
+  console.log('[sw.push]', event)
 
-  console.log(payload)
+  const title = '推送標題!!'
+  const options = {
+    body: '推送內容!!',
+    icon: './firebase-icon.png'
+  }
+  self.registration.showNotification(title, options)
+})
 
-  console.log('[firebase-messaging-sw.js] Received background message ', payload)
+/*
+  Firebase 需設置此，才能在使用者不開啟頁面時收到通知 
+  但若使用 firebase 的 Cloud Messaging 推送的話，會直接顯示那邊的設定，就不會進來這裡
+  但還是要設置此事件才會收到通知
+*/
+messaging.setBackgroundMessageHandler(payload => {
+  console.log('[sw.setBackgroundMessageHandler] Received background message ', payload)
 
   // Customize notification here
   const notificationTitle = 'Background Message Title'
   const notificationOptions = {
     body: 'Background Message body.',
-    icon: payload.notification.image
+    icon: './firebase-icon.png'
   }
 
   return self.registration.showNotification(

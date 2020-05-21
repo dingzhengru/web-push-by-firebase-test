@@ -21,9 +21,7 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'index.html'))
 })
 
-app.get('/loged-in', (req, res, next) => {
-  res.sendFile(path.join(__dirname, 'index-logged-in.html'))
-})
+
 
 // 加上 0.0.0.0 取得的 req.ip 就會是 ipv4 的
 app.listen(port, () => {

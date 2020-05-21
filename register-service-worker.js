@@ -37,7 +37,7 @@ if ('serviceWorker' in navigator) {
         第一種情況，是在index.js下寫一個messaging.onMessage的function處理。
         第二種情況，是在sw.js下寫一個messaging.setBackgroundMessageHandler的function處理。
 
-        此為第一種情況: 使用者正開啟官網頁面
+        下面的是處理第一種情況: 使用者正開啟頁面
       */
       messaging.onMessage(payload => {
         console.log('Message received. ', payload);
