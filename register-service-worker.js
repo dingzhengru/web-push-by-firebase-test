@@ -10,13 +10,19 @@ if ('serviceWorker' in navigator) {
 
       messaging.usePublicVapidKey("BF0AaH-_kssWsJLFBj1IFeCzFT0vucJ5emhTzfKt0xCb5UBLuyqmQilknFilkUPDe53GR-rIGr0NIZgFmxaTuMU")
 
+      // token 等同於一個使用者，看要不要存起來
+      // 或者就一直對全體傳送通知
       messaging.getToken().then(currentToken => {
         if (currentToken) {
           console.log('currentToken', currentToken)
+
+          Cookies.set('message-token', currentToken) // 放 Cookie
+
           // sendTokenToServer(currentToken)
           // updateUIForPushEnabled(currentToken)
         } else {
           // Show permission request.
+          Cookies.remove('message-token', currentToken) // 刪除 Cookie
           console.log('No Instance ID token available. Request permission to generate one.')
           // Show permission UI.
           // updateUIForPushPermissionRequired()

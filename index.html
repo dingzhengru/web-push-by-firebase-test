@@ -4,12 +4,16 @@
   <title>Web Push Test</title>
 
   <link rel="manifest" href="./manifest.json">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <h1>Web Push Test</h1>
 
+  <p>
+    過3秒送出，趁這段時間離開這網頁，才能看到此通知
+  </p>
 
+  <button onclick="pushMessage()">Push Message</button>
   
 
   <script src="https://www.gstatic.com/firebasejs/7.14.0/firebase-app.js"></script>
@@ -17,5 +21,27 @@
 
   <script src="./firebase-config.js"></script>
   <script src="./register-service-worker.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+
+  <script>
+
+    async function pushMessage() {
+      const token = Cookies.get('message-token')
+      const url = location.origin + '/push-message'
+
+      await timeout(3000)
+
+      const result = await axios.post(url, { token })
+      
+      console.log(result)
+    }
+
+    function timeout(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  
+  </script>
 </body>
 </html>

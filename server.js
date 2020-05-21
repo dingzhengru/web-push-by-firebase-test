@@ -1,7 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import path from 'path'
-
+import axios from 'axios'
+import asyncHandler from 'express-async-handler'
+import { getAccessToken, pushMessage } from './jwt-test.js'
 
 const port = 50005
 
@@ -17,11 +19,24 @@ app.use(cors())
 
 app.use(express.static('.'))
 
+app.post('/push-message', asyncHandler(async (req, res, next) => {
+  /* 
+    POST https://fcm.googleapis.com/v1/projects/myproject-b5ae1/messages:send 
+
+    Content-Type: application/json
+    Authorization: Bearer [Token]
+  */
+
+  const userToken = req.body.token
+  const accessToken = await getAccessToken()
+  const result = await pushMessage(userToken, accessToken)
+
+  res.send(result.data)
+}))
+
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'index.html'))
 })
-
-
 
 // 加上 0.0.0.0 取得的 req.ip 就會是 ipv4 的
 app.listen(port, () => {
