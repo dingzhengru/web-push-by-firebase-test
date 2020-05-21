@@ -23,8 +23,40 @@
 
 ## 注意點
 * sw.js 中的 setBackgroundMessageHandler，通知寫好的狀態下是不會呼叫的，參考: [這裡](https://firebase.google.com/docs/cloud-messaging/js/receive#setting_notification_options_in_the_service_worker)
-* 即使不設置 setBackgroundMessageHandler，也要把 firebase & firebase.message 引入至 sw.js 中，且要執行到 ```const messaging = firebase.messaging()``` 
+* 即使不設置 setBackgroundMessageHandler，也要把 firebase & firebase.message 引入至 sw.js 中，且要執行到 ```const messaging = firebase.messaging()```
 
+
+## jwt
+* 產出 access_token，用於 Message API 的 Authorization
+
+jwt-test.js
+```js
+import { JWT } from 'google-auth-library'
+import key from './web-push-test-7fe3a-firebase-adminsdk-twn35-c570831d8a.json'
+
+export async function getAccessToken() {
+    const jwtClient = new JWT(
+      key.client_email,
+      null,
+      key.private_key,
+      ['https://www.googleapis.com/auth/cloud-platform'], // scope
+      null
+    )
+
+    const token = await jwtClient.authorize()
+
+    if(token.access_token)
+      return token.access_token
+
+    return token
+}
+```
+
+
+## Firebase Message API
+* access_token: jwt 用 firebase 的私鑰產出來的(專案設定 => 服務帳戶 => 產生新的私鑰)
+* token: 接收者的 token，需由前端等使用者同意接收通知後才會產生出來，再傳給後端即可
+* 此為傳給特定 token 的方法
 
 ```bash
 POST https://fcm.googleapis.com/v1/projects/{ project-id }/messages:send
@@ -47,9 +79,6 @@ const data = {
       "fcm_options": { // WebpushFcmOptions: https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages?hl=zh-TW#webpushfcmoptions
         "link": "http://localhost:50005" // 點擊通知後會去的網址
       },
-      "headers": {
-        "Urgency": "high"
-      },
       "notification": {
         "body": "Web Push Message!!!!!!!!",
         "requireInteraction": "true",
@@ -60,3 +89,43 @@ const data = {
   }
 }
 ```
+
+## 群體傳送通知
+* 有兩種方式，參考: https://firebase.google.com/docs/cloud-messaging/js/send-multiple
+* Topic messaging: 為各個 token 設置 Topic，對某個 Topic 傳送即可
+* Device group messaging: 裝置群組
+
+### Topic
+* 參考: https://firebase.google.com/docs/cloud-messaging/js/topic-messaging
+* 為 token 設置主題名稱 => 指定主題傳送通知
+
+為 token 設置主題名稱
+```bash
+https://iid.googleapis.com/iid/v1/{ REGISTRATION_TOKEN }/rel/topics/{ TOPIC_NAME }
+
+Content-Type:application/json
+Authorization:key={ 網路 API 金鑰 }
+```
+
+指定主題傳送通知
+``` bash
+https://fcm.googleapis.com//v1/projects/{ YOUR-PROJECT-ID }/messages:send
+Content-Type: application/json
+Authorization: bearer { YOUR-ACCESS-TOKEN }
+{
+  "message": {
+    "topic": { TOPIC_NAME }
+    "notification": {
+      "title": "Background Message Title",
+      "body": "Background message body"
+    },
+    "webpush": {
+      "fcm_options": {
+        "link": "https://dummypage.com"
+      }
+    }
+  }
+}
+```
+
+### Device group
