@@ -50,30 +50,25 @@ const messaging = firebase.messaging()
 // })
 
 /*
-  Firebase 需設置此，才能在使用者不開啟頁面時收到通知 
-  但若使用 firebase 的 Cloud Messaging 推送的話，會直接顯示那邊的設定，就不會進來這裡
-  但還是要設置此事件才會收到通知
-
   不調用原因
   Note: If you set notification fields in your message payload, your setBackgroundMessageHandler callback is not called, and instead the SDK displays a notification based on your payload.
 
-  當有設置好 notification 的欄位時，就不會調用 
-
+  就是說此事件，當有設置好 notification 的欄位時，就不會調用 
 */
-// messaging.setBackgroundMessageHandler(payload => {
-//   console.log('[sw.setBackgroundMessageHandler] Received background message ', payload)
+messaging.setBackgroundMessageHandler(payload => {
+  console.log('[sw.setBackgroundMessageHandler] Received background message ', payload)
 
-//   const data = payload.data
+  const data = payload.data
 
-//   // Customize notification here
-//   const notificationTitle = 'Background Message Title'
-//   const notificationOptions = {
-//     body: 'Background Message body.',
-//     icon: './firebase-icon.png'
-//   }
+  // Customize notification here
+  const notificationTitle = 'Background Message Title'
+  const notificationOptions = {
+    body: 'Background Message body.',
+    icon: './firebase-icon.png'
+  }
 
-//   return self.registration.showNotification(
-//     notificationTitle,
-//     notificationOptions
-//   )
-// })
+  return self.registration.showNotification(
+    notificationTitle,
+    notificationOptions
+  )
+})

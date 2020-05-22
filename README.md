@@ -129,3 +129,55 @@ Authorization: bearer { YOUR-ACCESS-TOKEN }
 ```
 
 ### Device group
+* 參考: https://firebase.google.com/docs/cloud-messaging/js/device-group
+* 創建設備組 => 傳送通知至此設備組
+* 創建的時候需新增用戶進去，用戶為空時會自動刪除該設備組，用戶是指 registration_ids (fcm_tokens，用戶同意接收通知時會收到的 token)
+
+**創建設備組** 
+``` bash
+# API_KEY: 專案的 api key
+# notification_key_name: 設備群組名稱，不可重複
+# registration_ids: 用戶的 token
+
+https://fcm.googleapis.com/fcm/notification
+
+Content-Type:application/json
+Authorization:key={API_KEY}
+project_id:SENDER_ID
+
+{
+   "operation": "create",
+   "notification_key_name": "appUser-Chris",
+   "registration_ids": ["4", "8", "15", "16", "23", "42"]
+}
+```
+
+回傳資料 (保存 notification_key_name & notification_key 以便後續動作)
+```bash
+{ "notification_key": "APA91bGHXQBB...9QgnYOEURwm0I3lmyqzk2TXQ" }
+```
+
+查詢 notification_key
+
+``` bash
+GET https://fcm.googleapis.com/fcm/notification?notification_key_name=appUser-Chris
+Content-Type:application/json
+Authorization:key=API_KEY
+project_id:SENDER_ID
+{}
+```
+
+新增用戶至設備組
+
+將 "51" 新增至 "appUser-Chris"
+```
+
+https://fcm.googleapis.com/fcm/notification
+
+{
+   "operation": "add",
+   "notification_key_name": "appUser-Chris",
+   "notification_key": "APA91bGHXQBB...9QgnYOEURwm0I3lmyqzk2TXQ",
+   "registration_ids": ["51"]
+}
+```
