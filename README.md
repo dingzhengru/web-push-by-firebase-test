@@ -161,7 +161,7 @@ project_id:SENDER_ID
 { "notification_key": "APA91bGHXQBB...9QgnYOEURwm0I3lmyqzk2TXQ" }
 ```
 
-查詢 notification_key
+**查詢 notification_key**
 
 ``` bash
 GET https://fcm.googleapis.com/fcm/notification?notification_key_name=appUser-Chris
@@ -171,7 +171,7 @@ project_id:SENDER_ID
 {}
 ```
 
-新增用戶至設備組
+**新增用戶至設備組**
 
 將 "51" 新增至 "appUser-Chris"
 ```
@@ -186,7 +186,7 @@ https://fcm.googleapis.com/fcm/notification
 }
 ```
 
-傳送通知
+**傳送通知**
 
 ``` bash
 
