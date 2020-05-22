@@ -65,7 +65,7 @@ Content-Type: application/json
 Authorization: Bearer {access_token}
 ```
 
-Message Object
+**Message Object**
 ``` js
 // 欄位一覽: https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages?hl=zh-TW#Notification
 const data = {
@@ -99,7 +99,7 @@ const data = {
 * 參考: https://firebase.google.com/docs/cloud-messaging/js/topic-messaging
 * 為 token 設置主題名稱 => 指定主題傳送通知
 
-為 token 設置主題名稱
+**為 token 設置主題名稱**
 ```bash
 https://iid.googleapis.com/iid/v1/{ REGISTRATION_TOKEN }/rel/topics/{ TOPIC_NAME }
 
@@ -107,7 +107,7 @@ Content-Type:application/json
 Authorization:key={ 網路 API 金鑰 }
 ```
 
-指定主題傳送通知
+**指定主題傳送通知**
 ``` bash
 https://fcm.googleapis.com//v1/projects/{ YOUR-PROJECT-ID }/messages:send
 Content-Type: application/json
