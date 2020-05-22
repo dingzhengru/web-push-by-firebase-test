@@ -24,7 +24,8 @@
 ## 注意點
 * sw.js 中的 setBackgroundMessageHandler，通知寫好的狀態下是不會呼叫的，參考: [這裡](https://firebase.google.com/docs/cloud-messaging/js/receive#setting_notification_options_in_the_service_worker)
 * 即使不設置 setBackgroundMessageHandler，也要把 firebase & firebase.message 引入至 sw.js 中，且要執行到 ```const messaging = firebase.messaging()```
-
+* 想要使用自訂的 sw.js 的話，需於註冊後使用 messaging.useServiceWorker(registration)，避免重複註冊
+* 不用自訂的 sw.js，可以在根目錄建立一個空檔案 firebase-messaging-sw.js
 
 ## jwt
 * 產出 access_token，用於 Message API 的 Authorization
