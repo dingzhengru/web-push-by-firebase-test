@@ -130,7 +130,10 @@ Authorization: bearer { YOUR-ACCESS-TOKEN }
 
 ### Device group
 * 參考: https://firebase.google.com/docs/cloud-messaging/js/device-group
-* 創建設備組 => 傳送通知至此設備組
+* 創建設備組 => 取得 notification_key
+* 新增用戶至設備組 => 取得 notification_key
+* 正常推播訊息會是
+  * 查詢 notification_key (用 notification_key_name 查詢) => 取得 notification_key => 傳送通知至此設備組
 * 創建的時候需新增用戶進去，用戶為空時會自動刪除該設備組，用戶是指 registration_ids (fcm_tokens，用戶同意接收通知時會收到的 token)
 
 **創建設備組** 
