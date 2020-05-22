@@ -138,6 +138,7 @@ Authorization: bearer { YOUR-ACCESS-TOKEN }
 # API_KEY: 專案的 api key
 # notification_key_name: 設備群組名稱，不可重複
 # registration_ids: 用戶的 token
+# 回傳的 notification_key:  只是 notification_key_name 的安全型態，還是代表其設備組
 
 https://fcm.googleapis.com/fcm/notification
 
@@ -179,5 +180,21 @@ https://fcm.googleapis.com/fcm/notification
    "notification_key_name": "appUser-Chris",
    "notification_key": "APA91bGHXQBB...9QgnYOEURwm0I3lmyqzk2TXQ",
    "registration_ids": ["51"]
+}
+```
+
+傳送通知
+
+``` bash
+
+https://fcm.googleapis.com/fcm/send
+Content-Type:application/json
+Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
+
+{
+  "to": "{ notification_key }",
+  "data": {
+    "hello": "This is a Firebase Cloud Messaging Device Group Message!",
+   }
 }
 ```
